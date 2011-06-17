@@ -52,10 +52,14 @@ else
 ifeq ($(CONFIG_S5PC110_VIBRANTPLUS_BOARD),y)
 snd-soc-wm8994-objs := wm8994.o wm8994_vibrantplus.o HAC.o  ttymisc.o
 else
+ifeq ($(CONFIG_SND_VOODOO),y)
+snd-soc-wm8994-objs := wm8994.o wm8994_sidekick.o HAC.o ttymisc.o wm8994_voodoo.o
+else
 ifeq ($(CONFIG_S5PC110_SIDEKICK_BOARD),y)
 snd-soc-wm8994-objs := wm8994.o wm8994_sidekick.o HAC.o  ttymisc.o
 else
 snd-soc-wm8994-objs := wm8994.o wm8994_aries.o HAC.o
+endif
 endif
 endif
 endif
@@ -120,3 +124,7 @@ obj-$(CONFIG_SND_SOC_WM_HUBS)	+= snd-soc-wm-hubs.o
 
 # Amp
 obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
+
+ifeq ($(CONFIG_SND_VOODOO_MODULE),m)
+obj-$(CONFIG_SND_VOODOO_MODULE)	+= voodoo-sound-tegrak-module/
+endif
